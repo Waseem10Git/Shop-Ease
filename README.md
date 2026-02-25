@@ -34,7 +34,7 @@ Install my-project with npm
 ```bash
     cd frontend
     npm install
-    npm run dev
+    npm start
 ```
 
 3. go to frontend folder and install dependincies
