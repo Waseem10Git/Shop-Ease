@@ -1,44 +1,52 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const env = require('dotenv')
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const env = require("dotenv");
 
 env.config();
 
 const userSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        require: true,
-        min: 5,
-        max: 25,
+  username: {
+    type: String,
+    require: true,
+    min: 5,
+    max: 25,
+  },
+  password: {
+    type: String,
+    require: true,
+    min: 8,
+    max: 300,
+  },
+  cart: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product",
     },
-    password: {
-        type: String,
-        require: true,
-        min: 8,
-        max: 300,
-    },
-    cart: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product',
-    }]
+  ],
 });
 
-userSchema.pre('save', async function (next) {
-    const salt = await bcrypt.genSalt(10);
-    const hashed = await bcrypt.hash(this.password, salt);
+userSchema.pre("save", async function (next) {
+  const salt = await bcrypt.genSalt(10);
+  const hashed = await bcrypt.hash(this.password, salt);
 
-    this.password = hashed;
+  this.password = hashed;
 
-    next();
-})
+  next();
+});
 
 userSchema.methods.genAuthToken = function () {
-    return jwt.sign({ _id: this._id, username: this.username }, process.env.TOKEN_SECTRET_KEY);
-}
+  if (!process.env.TOKEN_SECTRET_KEY) {
+    throw new Error("TOKEN_SECTRET_KEY is not defined");
+  }
+  return jwt.sign(
+    { _id: this._id, username: this.username },
+    process.env.TOKEN_SECTRET_KEY
+  );
+};
 
 userSchema.methods.checkPassword = function (password) {
-    return bcrypt.compare(password, this.password);
-}
+  return bcrypt.compare(password, this.password);
+};
 
-module.exports = User = mongoose.model('User', userSchema);
+module.exports = User = mongoose.model("User", userSchema);

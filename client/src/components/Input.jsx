@@ -1,12 +1,20 @@
-
-function Input ({ id, type  ='text', label, value, handleChange, ...rest }) {
-    return (
-        <div className={"mb-3"}>
-            <label className={"form-label"} htmlFor={id}>{label}</label>
-            <input className={"form-control"} type={type} name={id} value={value} id={id}
-                   onChange={handleChange} {...rest}/>
-        </div>
-    )
+function Input({ id, type = "text", label, value, onChange, ...rest }) {
+  return (
+    <div className={"mb-3"}>
+      <label className={"form-label"} htmlFor={id}>
+        {label}
+      </label>
+      <input
+        className={"form-control"}
+        type={type}
+        name={id}
+        value={value}
+        id={id}
+        onChange={onChange}
+        {...rest}
+      />
+    </div>
+  );
 }
 
-export default Input
+export default Input;
