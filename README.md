@@ -1,20 +1,22 @@
 
 # Shop-Ease
 
-A full-stack shopping platform featuring user authentication, product browsing, a shopping cart system, and online payments.
+A full-stack shopping platform featuring user authentication, product browsing and a shopping cart system.
 
 
 ## Features
 
-- Light/dark mode toggle
-- Live previews
-- Fullscreen mode
-- Cross platform
+- User registration and secure login
+- View detailed product information
+- Add products to cart
+- Remove products from cart
+- Add new products
+- Responsive design (mobile & desktop)
 
 
 ## Tech Stack
 
-**Client:** React, Redux, TailwindCSS
+**Client:** React, Bootstarp, CSS
 
 **Server:** Node, Express
 
@@ -37,10 +39,9 @@ Install my-project with npm
     npm start
 ```
 
-3. go to frontend folder and install dependincies
+3. go to backend folder and install dependincies
 
 ```bash
-    cd ..
     cd backend
     npm install
     npm start
@@ -50,48 +51,17 @@ Install my-project with npm
 
 To run this project, you will need to add the following environment variables to your .env file
 
-`API_KEY`
-
-`ANOTHER_API_KEY`
-
-
-## Usage
-
-- Register a new user
-- Log in to your account
-- Browse available products
-- Add items to your cart
-- Checkout and view your orders
-
+`TOKEN_SECTRET_KEY`
 
 ## API Reference
 
-#### Auth Routes
-
 | Method | Endpoint     | Description                |
 | :-------- | :------- | :------------------------- |
-| POST | `/api/auth/register` | Register a new user|
-| POST | `/api/auth/login` | Login and receive JWT|
-
-#### Product Routes
-
-| Method | Endpoint     | Description                     |
-| :-------- | :------- | :-------------------------------- |
-| POST | `/api/cart` | Add item to cart|
-| GET | `/api/cart` | Get user cart|
-
-
-## Project Structure
-
-Shop-Ease/
-│── client/          # React frontend
-│── server/          # Node.js + Express backend
-│── db/              # SQL scripts or migrations
-│── .env.example     # Example env variables
-│── package.json
-│── README.md
-
-## Screenshots
-
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
-
+| POST | `/api/users` | Register a new user|
+| POST | `/api/auth` | Login and receive JWT|
+| POST | `/api/products` | Create new product|
+| GET | `/api/products` | Get all items|
+| GET | `/api/products/:id` | Get item by id|
+| GET | `/api/cart` | Get all items in cart|
+| PUT | `/api/cart/add` | Add item to cart|
+| DELETE | `/api/cart/:id` | Remove item from cart|
